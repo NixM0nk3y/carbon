@@ -75,6 +75,8 @@ defaults = dict(
   MIN_RESET_INTERVAL=121,
   USE_RATIO_RESET=False,
   LOG_LISTENER_CONN_SUCCESS=True,
+  ENABLE_MQTT=False,
+  MQTT_VERBOSE=False,
 )
 
 

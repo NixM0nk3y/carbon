@@ -59,6 +59,16 @@ def createBaseService(config):
         amqp_exchange_name = settings.get("AMQP_EXCHANGE", "graphite")
 
 
+    use_mqtt = settings.get("ENABLE_MQTT", False)
+    if use_mqtt:
+        from carbon import mqtt_listener
+
+        mqtt_host = settings.get("MQTT_HOST", "localhost")
+        mqtt_port = settings.get("MQTT_PORT", 1883)
+        mqtt_user = settings.get("MQTT_USER", "guest")
+        mqtt_password = settings.get("MQTT_PASSWORD", "guest")
+        mqtt_verbose  = settings.get("MQTT_VERBOSE", False)
+
     for interface, port, protocol in ((settings.LINE_RECEIVER_INTERFACE,
                                        settings.LINE_RECEIVER_PORT,
                                        MetricLineReceiver),
@@ -84,6 +94,13 @@ def createBaseService(config):
             exchange_name=amqp_exchange_name,
             verbose=amqp_verbose)
         service = TCPClient(amqp_host, int(amqp_port), factory)
+        service.setServiceParent(root_service)
+
+    if use_mqtt:
+        factory = mqtt_listener.createMQTTListener(
+            mqtt_user, mqtt_password,
+            verbose=mqtt_verbose)
+        service = TCPClient(mqtt_host, int(mqtt_port), factory)
         service.setServiceParent(root_service)
 
     if settings.ENABLE_MANHOLE:
