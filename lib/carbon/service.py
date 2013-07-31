@@ -188,7 +188,7 @@ def createAggregatorService(config):
 
 def createRelayService(config):
     from carbon.routers import RelayRulesRouter, ConsistentHashingRouter, AggregatedConsistentHashingRouter
-    from carbon.client import CarbonClientManager
+    from carbon.client import CarbonClientManager, CarbonUDPClient
     from carbon.conf import settings
     from carbon import events
 
@@ -211,6 +211,12 @@ def createRelayService(config):
     events.metricGenerated.addHandler(client_manager.sendDatapoint)
     events.specialMetricReceived.addHandler(client_manager.sendHighPriorityDatapoint)
     events.specialMetricGenerated.addHandler(client_manager.sendHighPriorityDatapoint)
+
+    # Turn on UDP forwarding
+    if settings.ENABLE_UDP_FORWARDING:
+        udp_forward = CarbonUDPClient()
+        events.metricReceived.addHandler(udp_forward.sendDatapoint) 
+        events.specialMetricReceived.addHandler(udp_forward.sendDatapoint)
 
     if not settings.DESTINATIONS:
       raise CarbonConfigException("Required setting DESTINATIONS is missing from carbon.conf")

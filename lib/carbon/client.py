@@ -8,6 +8,7 @@ from carbon.util import pickle
 from carbon import log, state, instrumentation
 from collections import deque
 from time import time
+import socket
 
 
 SEND_QUEUE_LOW_WATERMARK = settings.MAX_QUEUE_SIZE * settings.QUEUE_LOW_WATERMARK_PCT
@@ -375,3 +376,14 @@ class CarbonClientManager(Service):
 
   def __str__(self):
     return "<%s[%x]>" % (self.__class__.__name__, id(self))
+
+class CarbonUDPClient():
+  def sendDatapoint(self, metric, datapoint):
+    try:
+      ip = settings.UDP_IP
+      port = settings.UDP_PORT
+      sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+      sock.sendto("%s %s %d" % (metric, datapoint[0], datapoint[1] ), (ip, port))
+    except Exception, e:
+     log.clients("Error sending udp: %s" % e) 
+
