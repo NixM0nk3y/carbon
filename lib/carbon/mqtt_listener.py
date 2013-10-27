@@ -182,6 +182,12 @@ class MQTTListenerFactory(ReconnectingClientFactory):
         log.listener('CAUGHT In The ACT: Connection failed. Reason: %s' % (reason))
         ReconnectingClientFactory.clientConnectionFailed(self, connector, reason)
 
+    def buildProtocol(self, addr):
+        self.resetDelay()
+        p = self.protocol()
+        p.factory = self
+        return p
+
 def createMQTTListener(username, password, verbose=False):
     """
     Create an MQTTListenerFactory configured with the specified options.
