@@ -1,0 +1,41 @@
+# Czech PO debconf template translation of graphite-carbon.
+# Copyright (C) 2012 Michal Simunek <michal.simunek@gmail.com>
+# This file is distributed under the same license as the graphite-carbon package.
+# Michal Simunek <michal.simunek@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: graphite-carbon 0.9.9+debian-2\n"
+"Report-Msgid-Bugs-To: graphite-carbon@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-06 07:36+0200\n"
+"PO-Revision-Date: 2012-05-20 11:31+0200\n"
+"Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid "Remove database files when purging graphite-carbon?"
+msgstr "Odstranit při odinstalování graphite-carbon databázové soubory?"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"The /var/lib/graphite/whisper directory contains the whisper database files."
+msgstr ""
+"Adresář /var/lib/graphite/whisper obsahuje databázové soubory s našeptáváním."
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"You may want to keep these database files even if you completely remove "
+"graphite-carbon, in case you plan to reinstall it later."
+msgstr ""
+"Přestože graphite-carbon úplně odstraňujete, můžete chtít tyto databázové "
+"soubory zachovat v případě, že jej plánujete později znovu nainstalovat."

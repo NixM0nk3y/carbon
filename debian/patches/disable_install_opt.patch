@@ -1,0 +1,18 @@
+Description: Do not install stuff to /opt
+Author: Jonas Genannt <jonas.genannt@capi2name.de>
+Forwarded: not-needed
+
+diff --git a/setup.cfg b/setup.cfg
+index 731e63b..e69de29 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -1,9 +0,0 @@
+-[install]
+-prefix = /opt/graphite
+-install-lib = %(prefix)s/lib
+-
+-[bdist_rpm]
+-requires = python-twisted
+-           whisper
+-
+-post-install = distro/redhat/misc/postinstall

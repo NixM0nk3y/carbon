@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+DIRS="/var/lib/graphite /var/lib/graphite/whisper /var/log/carbon"
+
+if [ "$1" = configure ]; then
+	if ! getent passwd _graphite > /dev/null; then
+		adduser --system --quiet --home /var/lib/graphite --no-create-home \
+			--shell /bin/false --force-badname --group --gecos "Graphite User" _graphite
+	fi
+
+	for i in $DIRS; do
+		if ! dpkg-statoverride --list $i >/dev/null 2>&1; then
+			dpkg-statoverride --update --add _graphite _graphite 0755 $i
+		fi
+	done
+fi
+
+db_stop
+
+#DEBHELPER#

@@ -1,0 +1,46 @@
+# German translation of the graphite-carbon debconf template.
+# Copyright (C) 2009-2011 Chris Davis, 2009 Lucio Torre, 2012 Jonas Genannt.
+# This file is distributed under the same license as the
+# graphite-carbon package.
+# Translation by Chris Leick <c.leick@vollbio.de>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: graphite-carbon 0.9.9\n"
+"Report-Msgid-Bugs-To: graphite-carbon@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-06 07:36+0200\n"
+"PO-Revision-Date: 2012-05-06 09:41+0200\n"
+"Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
+"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid "Remove database files when purging graphite-carbon?"
+msgstr ""
+"Datenbankdateien beim vollständigen Entfernen von Graphite-Carbon löschen?"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"The /var/lib/graphite/whisper directory contains the whisper database files."
+msgstr ""
+"Das Verzeichnis /var/lib/graphite/whisper enthält die Whisper-"
+"Datenbankdateien."
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"You may want to keep these database files even if you completely remove "
+"graphite-carbon, in case you plan to reinstall it later."
+msgstr ""
+"Möglicherweise möchten Sie diese Datenbankdateien sogar dann aufbewahren, "
+"wenn Sie Graphite-Carbon vollständig entfernen, falls Sie planen, es später "
+"erneut zu installieren."

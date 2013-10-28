@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with python2
+
+override_dh_install:
+	rename 's/\.py//' debian/graphite-carbon/usr/bin/*.py
+	# clean unneeded stuff
+	rm -rf debian/graphite-carbon/usr/conf
+	rm -rf debian/graphite-carbon/usr/storage
+	# install global default file for the three carbon daemons
+	cp debian/graphite-carbon.default debian/graphite-carbon/etc/default/graphite-carbon
+	# install config files
+	cp conf/carbon.conf.example debian/graphite-carbon/etc/carbon/carbon.conf
+	cp conf/storage-schemas.conf.example debian/graphite-carbon/etc/carbon/storage-schemas.conf
+	dh_install
+
+override_dh_installinit:
+	dh_installinit --name=carbon-cache
