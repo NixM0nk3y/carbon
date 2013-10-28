@@ -1,6 +1,5 @@
 import time
 
-from twisted.internet import reactor
 from twisted.internet.protocol import DatagramProtocol
 from twisted.internet.error import ConnectionDone
 from twisted.protocols.basic import LineOnlyReceiver, Int32StringReceiver
@@ -16,7 +15,7 @@ class MetricReceiver:
   """
   def connectionMade(self):
     self.peerName = self.getPeerName()
-    if settings.LOG_LISTENER_CONN_SUCCESS:
+    if settings.LOG_LISTENER_CONNECTIONS:
       log.listener("%s connection with %s established" % (self.__class__.__name__, self.peerName))
 
     if state.metricReceiversPaused:
@@ -41,9 +40,8 @@ class MetricReceiver:
 
   def connectionLost(self, reason):
     if reason.check(ConnectionDone):
-      if settings.LOG_LISTENER_CONN_SUCCESS:
+      if settings.LOG_LISTENER_CONNECTIONS:
         log.listener("%s connection with %s closed cleanly" % (self.__class__.__name__, self.peerName))
-
     else:
       log.listener("%s connection with %s lost: %s" % (self.__class__.__name__, self.peerName, reason.value))
 
@@ -58,11 +56,11 @@ class MetricReceiver:
     if WhiteList and metric not in WhiteList:
       instrumentation.increment('whitelistRejects')
       return
-    if datapoint[1] != datapoint[1]: # filter out NaN values
+    if datapoint[1] != datapoint[1]:  # filter out NaN values
       return
-    if int(datapoint[0]) == -1: # use current time if none given: https://github.com/graphite-project/carbon/issues/54
+    if int(datapoint[0]) == -1:  # use current time if none given
       datapoint = (time.time(), datapoint[1])
-    
+
     events.metricReceived(metric, datapoint)
 
 
@@ -72,7 +70,7 @@ class MetricLineReceiver(MetricReceiver, LineOnlyReceiver):
   def lineReceived(self, line):
     try:
       metric, value, timestamp = line.strip().split()
-      datapoint = ( float(timestamp), float(value) )
+      datapoint = (float(timestamp), float(value))
     except:
       log.listener('invalid line received from client %s, ignoring' % self.peerName)
       return
@@ -85,7 +83,7 @@ class MetricDatagramReceiver(MetricReceiver, DatagramProtocol):
     for line in data.splitlines():
       try:
         metric, value, timestamp = line.strip().split()
-        datapoint = ( float(timestamp), float(value) )
+        datapoint = (float(timestamp), float(value))
 
         self.metricReceived(metric, datapoint)
       except:
@@ -106,9 +104,13 @@ class MetricPickleReceiver(MetricReceiver, Int32StringReceiver):
       log.listener('invalid pickle received from %s, ignoring' % self.peerName)
       return
 
-    for (metric, datapoint) in datapoints:
+    for raw in datapoints:
       try:
-        datapoint = ( float(datapoint[0]), float(datapoint[1]) ) #force proper types
+        (metric, (value, timestamp)) = raw
+      except Exception, e:
+        log.listener('Error decoding pickle: %s' % e)
+      try:
+        datapoint = (float(value), float(timestamp))  # force proper types
       except:
         continue
 

@@ -36,7 +36,6 @@ class CarbonRootService(MultiService):
       parent.setComponent(ILogObserver, carbonLogObserver)
 
 
-
 def createBaseService(config):
     from carbon.conf import settings
     from carbon.protocols import (MetricLineReceiver, MetricPickleReceiver,
@@ -53,11 +52,10 @@ def createBaseService(config):
         amqp_port = settings.get("AMQP_PORT", 5672)
         amqp_user = settings.get("AMQP_USER", "guest")
         amqp_password = settings.get("AMQP_PASSWORD", "guest")
-        amqp_verbose  = settings.get("AMQP_VERBOSE", False)
-        amqp_vhost    = settings.get("AMQP_VHOST", "/")
-        amqp_spec     = settings.get("AMQP_SPEC", None)
+        amqp_verbose = settings.get("AMQP_VERBOSE", False)
+        amqp_vhost = settings.get("AMQP_VHOST", "/")
+        amqp_spec = settings.get("AMQP_SPEC", None)
         amqp_exchange_name = settings.get("AMQP_EXCHANGE", "graphite")
-
 
     use_mqtt = settings.get("ENABLE_MQTT", False)
     if use_mqtt:
@@ -112,7 +110,7 @@ def createBaseService(config):
         service.setServiceParent(root_service)
 
     if settings.USE_WHITELIST:
-      from carbon.regexlist import WhiteList,BlackList
+      from carbon.regexlist import WhiteList, BlackList
       WhiteList.read_from(settings["whitelist"])
       BlackList.read_from(settings["blacklist"])
 
@@ -188,7 +186,7 @@ def createAggregatorService(config):
 
 def createRelayService(config):
     from carbon.routers import RelayRulesRouter, ConsistentHashingRouter, AggregatedConsistentHashingRouter
-    from carbon.client import CarbonClientManager, CarbonUDPClient
+    from carbon.client import CarbonClientManager
     from carbon.conf import settings
     from carbon import events
 
@@ -209,14 +207,6 @@ def createRelayService(config):
 
     events.metricReceived.addHandler(client_manager.sendDatapoint)
     events.metricGenerated.addHandler(client_manager.sendDatapoint)
-    events.specialMetricReceived.addHandler(client_manager.sendHighPriorityDatapoint)
-    events.specialMetricGenerated.addHandler(client_manager.sendHighPriorityDatapoint)
-
-    # Turn on UDP forwarding
-    if settings.ENABLE_UDP_FORWARDING:
-        udp_forward = CarbonUDPClient()
-        events.metricReceived.addHandler(udp_forward.sendDatapoint) 
-        events.specialMetricReceived.addHandler(udp_forward.sendDatapoint)
 
     if not settings.DESTINATIONS:
       raise CarbonConfigException("Required setting DESTINATIONS is missing from carbon.conf")
