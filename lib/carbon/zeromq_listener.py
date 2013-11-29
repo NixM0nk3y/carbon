@@ -39,6 +39,7 @@ from optparse import OptionParser
 from string import maketrans
 
 from twisted.internet import reactor, defer
+from twisted.application.service import Service, Application
 
 from txzmq import ZmqEndpoint, ZmqFactory, ZmqPubConnection, ZmqSubConnection
 
@@ -60,14 +61,45 @@ HOSTNAME = socket.gethostname().split('.')[0]
 
 log.logToStdout()
 
-class ZeroMQMessageProcessor():
+class ZeroMQProcessor(Service):
 
     """
+       foo
     """
 
-    def __init__(self, verbose = False):
+    def __init__(self, method, endpoint, topics, verbose = False):
 
         self.verbose = verbose
+        self.method = method
+        self.endpoint = endpoint
+        self.topics = topics
+
+        log.listener("%s 0MZ on %s" % ( self.method, self.endpoint) )
+
+    def startService(self):
+        """
+
+        """
+
+        mqfactory = ZmqFactory()
+        mqendpoint = ZmqEndpoint(self.method, self.endpoint)
+
+        s = ZmqSubConnection(mqfactory, mqendpoint)
+
+        # default to all topics if non specified
+        if not len(self.topics):
+            self.topics.append('')
+
+        for topic in self.topics:
+
+            log.listener("Subscribing to topic: %s" % topic)
+
+            s.subscribe(topic)
+
+        s.gotMessage = self.processMessage
+
+        log.listener("0MZ listener setup complete !")
+
 
     def processMessage( self,  *args ):
         """Parse a message and post it as a metric."""
@@ -118,28 +150,17 @@ def startReceiver(method, endpoint, topics, verbose=False):
     post them as metrics.
     """
 
-    log.listener("%s 0MZ on %s" % ( method, endpoint) )
+    zmqservice = ZeroMQProcessor( method, endpoint, topics, verbose )
 
-    mqfactory = ZmqFactory()
-    mqendpoint = ZmqEndpoint(method, endpoint)
+    application = Application("zeromq") 
 
-    s = ZmqSubConnection(mqfactory, mqendpoint)
+    zmqservice.setServiceParent(application)
 
-    # default to all topics if non specified
-    if not len(topics):
-       topics.append('')
+    from twisted.application import app
+    app.startApplication(application, False)
 
-    for topic in topics:
+    #Service.startService(zmqservice)
 
-        log.listener("Subscribing to topic: %s" % topic)
-
-        s.subscribe(topic)
-
-    processor = ZeroMQMessageProcessor(verbose)
-
-    s.gotMessage = processor.processMessage
-
-    log.listener("0MZ listener setup complete !")
 
 def main():
     parser = OptionParser()
