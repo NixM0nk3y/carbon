@@ -14,7 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-This is an MQTT client that will connect to the specified broker and read
+This is an ZeroMQ client that will connect/bind to the specified endpoint and read
 messages, parse them, and post them as metrics.
 
 Each message's routing key should be a metric name.
@@ -95,7 +95,7 @@ class ZeroMQMessageProcessor():
                 value = None
                 timestamp = None
 
-                if settings.get("MQTT_METRIC_NAME_IN_BODY", False):
+                if settings.get("MQ_METRIC_NAME_IN_BODY", False):
                     metric, value, timestamp = line.split()
                 else:
                     value, timestamp = line.split()
