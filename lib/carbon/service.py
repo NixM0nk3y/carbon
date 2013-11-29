@@ -67,6 +67,15 @@ def createBaseService(config):
         mqtt_password = settings.get("MQTT_PASSWORD", "guest")
         mqtt_verbose  = settings.get("MQTT_VERBOSE", False)
 
+
+    use_zeromq = settings.get("ENABLE_ZEROMQ", False)
+    if use_zeromq:
+        from carbon import zeromq_listener
+
+        zeromq_endpoint = settings.get("ZEROMQ_ENDPOINT", 'ipc:///tmp/graphite.sock')
+        zeromq_method = settings.get("ZEROMQ_METHOD", 'bind')
+        zeromq_verbose  = settings.get("ZEROMQ_VERBOSE", False)
+
     for interface, port, protocol in ((settings.LINE_RECEIVER_INTERFACE,
                                        settings.LINE_RECEIVER_PORT,
                                        MetricLineReceiver),
@@ -100,6 +109,17 @@ def createBaseService(config):
             verbose=mqtt_verbose)
         service = TCPClient(mqtt_host, int(mqtt_port), factory)
         service.setServiceParent(root_service)
+
+    if use_zeromq:
+
+        zmqservice = zeromq_listener.ZeroMQProcessor( zeromq_method, 
+                                                      zeromq_endpoint, 
+                                                      topics=[''],
+                                                      verbose=zeromq_verbose )
+
+        zmqservice.setServiceParent(root_service) 
+
+        print zmqservice.__dict__
 
     if settings.ENABLE_MANHOLE:
         from carbon import manhole

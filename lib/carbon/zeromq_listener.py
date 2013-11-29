@@ -138,7 +138,7 @@ class ZeroMQProcessor(Service):
                 log.listener("invalid message line: %s" % (line,))
                 continue
 
-            #events.metricReceived(metric, datapoint)
+            events.metricReceived(metric, datapoint)
 
             if self.verbose:
                log.listener("Metric posted: %s %s %s" %
