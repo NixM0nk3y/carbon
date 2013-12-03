@@ -100,6 +100,16 @@ def parseDestinations(destination_strings):
   destinations = []
 
   for dest_string in destination_strings:
+
+    dest_string = dest_string.strip()
+
+    # do we have a zeromq type url
+    if dest_string.startswith(('ipc','tcp')):
+
+      destinations.append((dest_string, 0 , None))
+
+      continue
+
     parts = dest_string.strip().split(':')
     if len(parts) == 2:
       server, port = parts

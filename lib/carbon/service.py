@@ -235,3 +235,38 @@ def createRelayService(config):
       client_manager.startClient(destination)
 
     return root_service
+
+def createMQService(config):
+    from carbon.routers import RelayRulesRouter, ConsistentHashingRouter, AggregatedConsistentHashingRouter
+    from carbon.mqclient import CarbonMQClientManager
+    from carbon.conf import settings
+    from carbon import events
+
+    root_service = createBaseService(config)
+
+    # Configure application components
+    if settings.RELAY_METHOD == 'rules':
+      router = RelayRulesRouter(settings["relay-rules"])
+    elif settings.RELAY_METHOD == 'consistent-hashing':
+      router = ConsistentHashingRouter(settings.REPLICATION_FACTOR)
+    elif settings.RELAY_METHOD == 'aggregated-consistent-hashing':
+      from carbon.aggregator.rules import RuleManager
+      RuleManager.read_from(settings["aggregation-rules"])
+      router = AggregatedConsistentHashingRouter(RuleManager, settings.REPLICATION_FACTOR)
+
+    client_manager = CarbonMQClientManager(router)
+    client_manager.setServiceParent(root_service)
+
+    events.metricReceived.addHandler(client_manager.sendDatapoint)
+    events.metricGenerated.addHandler(client_manager.sendDatapoint)
+
+    if not settings.DESTINATIONS:
+      raise CarbonConfigException("Required setting DESTINATIONS is missing from carbon.conf")
+
+    if not settings.METHOD:
+      raise CarbonConfigException("Required setting METHOD is missing from carbon.conf")
+
+    for destination in util.parseDestinations(settings.DESTINATIONS):
+      client_manager.startClient(destination, settings.METHOD)
+
+    return root_service
