@@ -1,0 +1,42 @@
+# Danish translation graphite-carbon.
+# Copyright (C) 2012 graphite-carbon & nedenstående oversættere.
+# This file is distributed under the same license as the graphite-carbon package.
+# Joe Hansen <joedalton2@yahoo.dk>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: graphite-carbon\n"
+"Report-Msgid-Bugs-To: graphite-carbon@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-06 07:36+0200\n"
+"PO-Revision-Date: 2012-05-06 19:21+0100\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid "Remove database files when purging graphite-carbon?"
+msgstr "Fjern databasefiler når graphite-carbon afinstalleres?"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"The /var/lib/graphite/whisper directory contains the whisper database files."
+msgstr ""
+"Mappen /var/lib/graphite/whisper indeholder databasefilerne for whisper."
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"You may want to keep these database files even if you completely remove "
+"graphite-carbon, in case you plan to reinstall it later."
+msgstr ""
+"Ønsker du at beholde disse databasefiler, selv når du fuldstændig fjerner "
+"graphite-carbon; i tilfælde af at du planlægger at geninstallere programmet "
+"senere."

@@ -1,0 +1,26 @@
+Source: graphite-carbon
+Section: utils
+Priority: optional
+Maintainer: Debian Graphite Group <pkg-graphite-maint@lists.alioth.debian.org>
+Uploaders: Jonas Genannt <jonas.genannt@capi2name.de>,
+ Mathieu Parent <sathieu@debian.org>
+Build-Depends: debhelper (>= 8), python-all (>= 2.6.6-3~)
+Standards-Version: 3.9.4
+Homepage: https://github.com/graphite-project/carbon
+Vcs-Git: git://anonscm.debian.org//pkg-graphite/packages/graphite-carbon.git
+Vcs-Browser: http://anonscm.debian.org/gitweb?p=pkg-graphite/packages/graphite-carbon.git;a=summary
+
+Package: graphite-carbon
+Architecture: all
+Depends: adduser,
+         python-twisted-core,
+         python-whisper (>= 0.9.12~),
+         ${misc:Depends},
+         ${python:Depends}
+Suggests: graphite-web
+Description: backend data caching and persistence daemon for Graphite
+ Graphite is a web application using the Twisted framework to provide
+ real-time visualization and storage of numeric time-series data.
+ .
+ The Carbon daemon processes the incoming time-series data and saves it
+ as Whisper database files.

@@ -1,0 +1,18 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# debian-l10n-english@lists.debian.org for advice.
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
+Template: graphite-carbon/postrm_remove_databases
+Type: boolean
+Default: false
+_Description: Remove database files when purging graphite-carbon?
+ The /var/lib/graphite/whisper directory contains the whisper database
+ files.
+ .
+ You may want to keep these database files even if you completely
+ remove graphite-carbon, in case you plan to reinstall it later.

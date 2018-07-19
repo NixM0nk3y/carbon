@@ -1,0 +1,5 @@
+debian/carbon-aggregator.1
+debian/carbon-cache.1
+debian/carbon-client.1
+debian/carbon-relay.1
+debian/validate-storage-schemas.1

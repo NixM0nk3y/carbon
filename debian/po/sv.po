@@ -1,0 +1,52 @@
+# Translation of graphite-carbon debconf template to Swedish
+# Copyright (C) 2012 Martin Bagge <brother@bsnet.se>
+# This file is distributed under the same license as the graphite-carbon package.
+#
+# Martin Bagge <brother@bsnet.se>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: graphite-carbon@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-06 07:36+0200\n"
+"PO-Revision-Date: 2012-05-22 16:54+0100\n"
+"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
+"Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: Sweden\n"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid "Remove database files when purging graphite-carbon?"
+msgstr "Ska databasfilerna tas bort när graphite-carbon tas bort?"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"The /var/lib/graphite/whisper directory contains the whisper database files."
+msgstr "Katalogen /var/lib/graphite/whisper innehåller databasfilerna."
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"You may want to keep these database files even if you completely remove "
+"graphite-carbon, in case you plan to reinstall it later."
+msgstr ""
+"Du kan behålla databasfilerna även om du tar bort graphite-carbon, "
+"exempelvis om du tänkt installera det igen senare."
+
+#~ msgid "Should whisper database files removed then package is purged?"
+#~ msgstr "Ska whisper-databas-filerna raderas när paketet raderas?"
+
+#~ msgid ""
+#~ "If you are removing Carbon package in order to later install a more "
+#~ "recent version the data should be kept."
+#~ msgstr ""
+#~ "Om du raderar Carbon-paketet för att senare installera en nyare version "
+#~ "så ska datan behållas."

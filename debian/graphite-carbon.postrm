@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e
+
+REMOVE_DATABASES=false
+if [ -e /usr/share/debconf/confmodule ]; then
+	. /usr/share/debconf/confmodule
+
+	db_get graphite-carbon/postrm_remove_databases || true
+	REMOVE_DATABASES="${RET:-false}"
+fi
+
+DIRS="/var/lib/graphite /var/lib/graphite/whisper /var/log/carbon"
+
+if [ "$1" = purge ]; then
+	rm -rf /var/log/carbon
+
+	if [ "$REMOVE_DATABASES" = "true" ]; then
+		rm -rf /var/lib/graphite/whisper
+	fi
+
+	for i in $DIRS; do
+		if dpkg-statoverride --list $i >/dev/null 2>&1; then
+			dpkg-statoverride --remove $i
+		fi
+	done
+fi
+
+#DEBHELPER#

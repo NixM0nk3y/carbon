@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# victory <victory.deb@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: graphite-carbon\n"
+"Report-Msgid-Bugs-To: graphite-carbon@packages.debian.org\n"
+"POT-Creation-Date: 2012-06-16 17:51+0000\n"
+"PO-Revision-Date: 2012-06-17 02:51+0900\n"
+"Last-Translator: victory <victory.deb@gmail.com>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid "Remove database files when purging graphite-carbon?"
+msgstr "graphite-carbon の完全削除でデータベースファイルを削除しますか?"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"The /var/lib/graphite/whisper directory contains the whisper database files."
+msgstr ""
+"/var/lib/graphite/whisper ディレクトリに whisper のデータベースファイルがあり"
+"ます。"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"You may want to keep these database files even if you completely remove "
+"graphite-carbon, in case you plan to reinstall it later."
+msgstr ""
+"graphite-carbon を完全に削除する場合でも、後で再インストールする予定であれば"
+"データベースファイルは残しておくのがいいかもしれません。"

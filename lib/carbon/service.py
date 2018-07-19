@@ -37,6 +37,10 @@ try:
 except ImportError:
   pass
 try:
+  import carbon.mqtt_listener
+except ImportError:
+  pass
+try:
   import carbon.protobuf  # NOQA
 except ImportError:
   pass

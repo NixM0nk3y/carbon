@@ -1,0 +1,17 @@
+Description: change default values for debian
+Author: Jonas Genannt <jonas.genannt@capi2name.de>
+Forwarded: not-needed
+
+diff --git a/bin/validate-storage-schemas.py b/bin/validate-storage-schemas.py
+index 7966aff..08191e0 100755
+--- a/bin/validate-storage-schemas.py
++++ b/bin/validate-storage-schemas.py
+@@ -22,7 +22,7 @@ if len(sys.argv) == 2:
+   SCHEMAS_FILE = sys.argv[1]
+   print "Loading storage-schemas configuration from: '%s'" % SCHEMAS_FILE
+ else:
+-  SCHEMAS_FILE = realpath(join(dirname(__file__), '..', 'conf', 'storage-schemas.conf'))
++  SCHEMAS_FILE = '/etc/carbon/storage-schemas.conf'
+   print "Loading storage-schemas configuration from default location at: '%s'" % SCHEMAS_FILE
+ 
+ config_parser = ConfigParser()

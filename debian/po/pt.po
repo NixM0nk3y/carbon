@@ -1,0 +1,54 @@
+# Portuguese translation of graphite-carbon's debconf messages
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the graphite-carbon's package.
+# Miguel Figueiredo <elmig@debianpt.org>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: graphite-carbon\n"
+"Report-Msgid-Bugs-To: graphite-carbon@packages.debian.org\n"
+"POT-Creation-Date: 2012-05-06 07:36+0200\n"
+"PO-Revision-Date: 2012-05-23 07:52+0100\n"
+"Last-Translator: Miguel Figueiredo <elmig@debianpt.org>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid "Remove database files when purging graphite-carbon?"
+msgstr "Remover os ficheiros da base de dados ao purgar o graphite-carbon?"
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"The /var/lib/graphite/whisper directory contains the whisper database files."
+msgstr ""
+"O directório /var/lib/graphite/whisper contém os ficheiros da base de dados "
+"whisper."
+
+#. Type: boolean
+#. Description
+#: ../graphite-carbon.templates:2001
+msgid ""
+"You may want to keep these database files even if you completely remove "
+"graphite-carbon, in case you plan to reinstall it later."
+msgstr ""
+"Poderá querer manter estes ficheiros da base de dados mesmo que remova "
+"completamente o graphite-carbon, caso planeie voltar a reinstalar."
+
+#~ msgid "Should whisper database files removed then package is purged?"
+#~ msgstr ""
+#~ "Devem ser os ficheiros da base de dados whisper removidos e o pacote "
+#~ "purgado?"
+
+#~ msgid ""
+#~ "If you are removing Carbon package in order to later install a more "
+#~ "recent version the data should be kept."
+#~ msgstr ""
+#~ "Se estiver a remover o pacote Carbon de modo a posteriormente instalar "
+#~ "uma versão mais recente, então os dados devem ser mantidos."
