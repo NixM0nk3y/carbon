@@ -26,25 +26,7 @@ with open('setup.cfg', 'r') as f:
     f.seek(0)
     cf.readfp(f, 'setup.cfg')
 
-if os.environ.get('GRAPHITE_NO_PREFIX'):
-    cf.remove_section('install')
-else:
-    print('#' * 80)
-    print('')
-    print('Carbon\'s default installation prefix is "/opt/graphite".')
-    print('')
-    print('To install Carbon in the Python\'s default location run:')
-    print('$ GRAPHITE_NO_PREFIX=True python setup.py install')
-    print('')
-    print('#' * 80)
-    try:
-        cf.add_section('install')
-    except DuplicateSectionError:
-        pass
-    if not cf.has_option('install', 'prefix'):
-        cf.set('install', 'prefix', '/opt/graphite')
-    if not cf.has_option('install', 'install-lib'):
-        cf.set('install', 'install-lib', '%(prefix)s/lib')
+cf.remove_section('install')
 
 with open('setup.cfg', 'w') as f:
     cf.write(f)
