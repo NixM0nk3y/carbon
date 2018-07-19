@@ -41,21 +41,21 @@ from string import maketrans
 from twisted.internet.defer import inlineCallbacks
 from twisted.internet import reactor
 from twisted.internet.protocol import ReconnectingClientFactory
+from twisted.application.internet import TCPClient
+
 from MQTT import MQTTProtocol, MQTTClient
 
 try:
     import carbon
-except:
+except ImportError:
     # this is being run directly, carbon is not installed
     LIB_DIR = os.path.dirname(os.path.dirname(__file__))
     sys.path.insert(0, LIB_DIR)
 
-    from carbon.conf import settings
-    settings['CONF_DIR']='/opt/graphite/conf'
-
-import carbon.protocols #satisfy import order requirements
+import carbon.protocols  # NOQA satisfy import order requirements
+from carbon.protocols import CarbonServerProtocol
 from carbon.conf import settings
-from carbon import log, events, instrumentation
+from carbon import log, events
 
 HOSTNAME = socket.gethostname().split('.')[0]
 
@@ -75,7 +75,7 @@ class MQTTProtocol(CarbonServerProtocol):
         mqtt_password = settings.get("MQTT_PASSWORD", "guest")
         mqtt_verbose  = settings.get("MQTT_VERBOSE", False)
 
-        factory = mqtt_listener.createMQTTListener(
+        factory = createMQTTListener(
             mqtt_user, mqtt_password,
             verbose=mqtt_verbose)
         service = TCPClient(mqtt_host, int(mqtt_port), factory)
