@@ -41,6 +41,10 @@ def createManholeListener():
   sshPortal = portal.Portal(sshRealm)
   sshPortal.registerChecker(credChecker)
   sessionFactory = ConchFactory(sshPortal)
+
+  sessionFactory.publicKeys[b'ssh-rsa'] = keys.Key.fromString(settings.MANHOLE_HOST_RSA_PUBLIC_KEY)
+  sessionFactory.privateKeys[b'ssh-rsa'] = keys.Key.fromString(settings.MANHOLE_HOST_RSA_PRIVATE_KEY)
+
   return sessionFactory
 
 
