@@ -95,7 +95,7 @@ class MQTTGraphiteProtocol(MQTTClient):
         if keepalive is not None:
             self.keepalive = keepalive
         else:
-            self.keepalive = 3000
+            self.keepalive = 10000
 
         if messagepoll is not None:
             self.MessagesLoop = messagepoll
